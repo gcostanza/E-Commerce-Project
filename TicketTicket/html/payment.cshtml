@@ -1,0 +1,91 @@
+@{
+    var message="";
+    // Specify validation requirements for different fields.
+    Validation.RequireField("cardtype", "Card type is required");
+    Validation.RequireField("cardnumber", "Card number is required");
+    Validation.RequireField("cardholder", "Card holder is required");  
+    Validation.RequireField("expirymonth", "Expiry is required");
+    Validation.RequireField("expiryyear", "Expiry Date is required");
+    Validation.RequireField("cvc", "CVC is required");
+
+    Validation.Add("cardnumber", Validator.StringLength(16));
+    Validation.Add("expirymonth", Validator.Range(1, 12, "Month must be between 1 and 12"));
+    Validation.Add("cvc", Validator.Integer("Please enter an integer"));
+    Validation.Add("cvc", Validator.StringLength(3));
+
+    if (IsPost && Validation.IsValid()) {
+        string cardtype = Request.Form["cardtype"];
+        string cardnumber = Request.Form["cardnumber"];
+        string cardholder = Request.Form["cardholder"];
+     <text>
+    Pay By: @cardholder<br/>
+    Card Type: @cardtype<br/>
+    Card Number: @cardnumber<br/>
+    </text>
+    <input type="button" name="confirm" value="Confirm" onclick="window.open(confirmation.cshtml);return false"/>
+    <input type="button" value="Modify"/>
+}   
+}
+
+<!DOCTYPE html>
+
+<html lang="zh">
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/styleCommon.css">
+        <style>
+        .field-validation-error{
+            color:red;
+            font-weight:bold;
+            background-color:yellow;
+           }
+
+        .input-validation-error{
+            color:red;
+            font-weight:bold;
+            background-color:pink;
+            }
+        </style> 
+        <title>Payment</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        
+    </head>
+    <body>
+        <h1>Payment Details</h1>
+        <form method="post">
+                <div>
+                <label>Card Type:</label>
+                <input type="radio" name="cardtype" value="visa"/>Visa
+                <input type="radio" name="cardtype" value="master"/>Master
+                    @Html.ValidationMessage("cardtype")
+                </div>
+                <div>
+                <label>Card Number:</label>
+                <input type="text" name="cardnumber"/>
+                    @Html.ValidationMessage("cardnumber")
+                </div>
+                <div>
+                <label>Card Expiry Date:</label>
+                <input type="text" name="expirymonth" /> /
+                <input type="text" name="expiryyear"/>
+                    @Html.ValidationMessage("expirymonth")
+                    @Html.ValidationMessage("expiryyear")
+                </div>
+                <div>
+                <label>Card Verification Code (CVC):</label>
+                <input type="text" name="cvc"/> Last three digits on Signature Panel
+                    @Html.ValidationMessage("cvc")
+                </div>
+                <div>
+                <label>Card Holder Name: </label>
+                <input type="text" name="cardholder"/> As embossed on card
+                    @Html.ValidationMessage("cardholder")
+                </div>
+                <input type="submit" name="Submit"value="Submit"/>
+                 <input type="button" value="Cancel"/>
+                 <input type="button" value="Reset"/>        
+            </form>
+            
+    </body>
+</html>
