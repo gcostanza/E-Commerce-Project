@@ -1,6 +1,4 @@
-@{
-    
-}
+
 
 <!DOCTYPE html>
 
@@ -13,19 +11,19 @@
     </head>
     <body>
         <h1>Payment Details</h1>
-        <form>
-            <fieldset>
+        <form method="post">
                 <div>
                 <label>Card Type:</label>
-                <input type="text"/>
+                <input type="radio" name="CardType" value="visa"/>Visa
+                <input type="radio" name="CardType" value="master"/>Master
                 </div>
                 <div>
                 <label>Card Number:</label>
-                <input type="text"/>
+                <input type="text" name="CardNumber"/>
                 </div>
                 <div>
                 <label>Card Expiry Date:</label>
-                <input type="text"/> /
+                <input type="text" /> /
                 <input type="text"/>
                 </div>
                 <div>
@@ -36,10 +34,10 @@
                 <label>Card Holder Name: </label>
                 <input type="text"/> As embossed on card
                 </div>
-            </fieldset>
+                <input type="submit" name="Submit"value="Submit"/>
+                 <input type="button" value="Cancel"/>
+                 <input type="button" value="Reset"/>        
             </form>
-            <button>Submit</button> 
-            <button>Cancel</button>
-            <button>Reset</button>
+            
     </body>
 </html>
