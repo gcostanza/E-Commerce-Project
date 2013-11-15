@@ -1,0 +1,88 @@
+﻿@{ 
+    Validation.RequireField("first_name", "First Name is required");
+    Validation.RequireField("last_name", "Last Name is required");
+    Validation.RequireField("address", "Address is required");
+    Validation.RequireField("birth", "Date of Birth is required");
+    Validation.RequireField("tel", "Phone Number is required");
+   
+   
+    var first_name = "";
+    var last_name = "";
+    var birth = "";
+    var address = "";
+    var tel = "";
+       
+   
+    if(IsPost && Validation.IsValid()){
+        first_name = Request.Form["first_name"];
+        last_name = Request.Form["last_name"];
+        birth = Request.Form["birth"];
+        address = Request.Form["address"];
+        tel = Request.Form["tel"];
+ 
+        var db = Database.Open("Web");
+        var insertCommand = "INSERT INTO Users (First_Name, Last_Name, Date_of_Birth, Address, Phone_Number) VALUES(@0, @1, @2, @3, @4)";
+        db.Execute(insertCommand, first_name, last_name, birth, address, tel);
+        Response.Redirect("~/Users");
+    }
+}
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>User Registration</title>
+    <style type="text/css">
+    .field-validation-error {
+      
+      font-weight:bold;
+      color:red;
+      font-style: italic; 
+     }
+    .validation-summary-errors{
+      border:2px  red;
+      color:red;
+      
+      font-weight:bold;
+      margin:12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Registration</h1>
+    @Html.ValidationSummary()
+  <form method="post">
+    <fieldset>
+      <legend>User Information</legend>
+      <p><label for="first_name">First Name:</label>
+         <input type="text" name="first_name" value="@Request.Form["first_name"]" />
+          @Html.ValidationMessage("first_name")
+      </p>
+ 
+      <p><label for="last_name">Last Name:</label>
+         <input type="text" name="last_name" value="@Request.Form["last_name"]" />
+          @Html.ValidationMessage("last_name")
+      </p>
+ 
+        <p><label for="birth">Date of Birth:</label>
+         <input type="date" name="birth" value="@Request.Form["birth"]" />
+          @Html.ValidationMessage("birth")
+      </p>
+ 
+      <p><label for="address">Address:</label>
+         <input type="text" name="address" value="@Request.Form["address"]" />
+          @Html.ValidationMessage("address")
+      </p>
+ 
+      <p><label for="tel">Phone Number:</label>
+         <input type="text" name="tel" value="@Request.Form["tel"]" />
+          @Html.ValidationMessage("tel")
+      </p>
+ 
+      <p><input type="submit" name="buttonSubmit" value="Register" /></p>
+    </fieldset>
+  </form>
+</body>
+</html>
+
+

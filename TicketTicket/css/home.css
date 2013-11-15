@@ -1,0 +1,122 @@
+#banniere{
+   width:50%;
+   height:60px;
+   padding:5px;
+   text-align:center;
+   border:2px black double;
+   background-color:#888888;
+}
+
+/*En fonction de la bannière, on change le fond*/
+#ban1{
+   background-color:#aaaaaa;
+}
+
+#ban2{
+   background-color:#bbbbbb;
+}
+
+#ban3{
+   background-color:#cccccc;
+}
+
+.Deals{
+display:inline;
+position: relative;
+float:left;
+width:28%;
+
+margin-top:1.5%;
+margin-right:1.5%;
+
+
+}
+
+#deal{
+
+padding:3%;}
+
+.Product{
+display:inline;
+position: relative;
+float:left;
+width:70%;
+}
+
+.Product h1{
+color:red;
+margin-left:5%;
+font-size:18px;
+}
+
+
+.Banner{
+width:95%;
+margin:2.5%;
+height:260px;
+}
+
+.bannerPict{
+width:100%;
+height:100%;}
+
+.banner{position:absolute; top:35px; z-index:1; height:32%; width:70%; background:#FFF; border:solid 2px red;margin-left:12.5%;}
+
+
+.Top{
+width:95%;
+margin:2.5%;
+border:2px red solid;
+background-color: rgba(255, 0, 0, 0.1);
+margin-top:10%;
+}
+.Suggest{
+width:95%;
+margin:2.5%;
+height:auto;
+border:2px red solid;
+background-color: rgba(255, 0, 0, 0.1);
+
+
+}
+
+.Icone{
+display:inline;
+position: relative;
+float:left;
+width:16%;
+height:auto;
+margin:2%;
+opacity: 1
+}
+
+
+.IconeDeal{
+display:block;
+width:55%;
+margin-top:5%;
+margin-left:22.5%;
+animation: clignote 1s;
+-webkit-animation:clignote 1s; /* Safari and Chrome */
+animation-iteration-count: infinite;
+-webkit-animation-iteration-count: infinite;}
+
+#concertdeal2{
+margin-top:10%;
+margin-bottom:10%;
+
+}
+
+
+@keyframes clignote
+{
+0%{box-shadow:0px 0px 10px red;}
+50%{box-shadow:0px 0px 0px red;}
+100%{box-shadow:0px 0px 10px red;}
+
+}
+@-webkit-keyframes clignote {
+0%{box-shadow:0px 0px 10px red;}
+50%{box-shadow:0px 0px 0px red;}
+100%{box-shadow:0px 0px 10px red;}
+}

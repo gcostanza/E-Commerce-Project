@@ -1,0 +1,73 @@
+﻿@{
+    var db = Database.Open("database") ;
+    var selectCommand = "SELECT * FROM Items";
+    var searchTerm = "";
+
+    if(!Request.QueryString["search_item"].IsEmpty() ) {
+    selectCommand = "SELECT * FROM Items WHERE name LIKE @0";
+    searchTerm = "%" + Request["search_item"] + "%";
+}
+
+    var selectedData = db.Query(selectCommand, searchTerm);
+    var result_grid = new WebGrid(source: selectedData, defaultSort: "name", rowsPerPage:3);
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Items</title>
+
+    <style type="text/css">
+  .result_grid { margin: 4px; border-collapse: collapse; width: 600px; }
+  .result_grid th, .grid td { border: 1px solid #C0C0C0; padding: 5px; }
+  .head { background-color: #E8E8E8; font-weight: bold; color: #FFF; }
+  .alt { background-color: #E8E8E8; color: #000; }
+  
+  .result_block {border: 1px solid #C0C0C0; max-width: 800px; max-height: 800px; }
+  .row {margin: 4px; border-collapse: collapse; border: 1px solid #C0C0C0; width: auto; max-height: 100px; display: inline-table;}
+  .row_image{height: 100px; width: 150px; display: inline-block; float: right}   
+  .row_paragraph{width: 80%; border: 1px solid #C0C0C0; display: inline-block;float: left;}
+  .row_title{width: fill-available; height: 40px;border: 1px solid #C0C0C0;}
+
+    </style> 
+
+
+</head>
+    <body>
+       <h1>Items</h1>
+
+<form method="get">
+<div>
+  <label for="search_item">Item title contains the following:</label>
+  <input type="text" name="search_item" value="@Request.QueryString["search_item"]" />
+  <input type="Submit" value="Search" /><br/>
+</div>
+</form>
+<div>
+@result_grid.GetHtml(
+    tableStyle: "result_grid",
+    headerStyle: "head",
+    alternatingRowStyle: "alt",
+    columns: result_grid.Columns(
+        result_grid.Column("name")
+    )
+)
+</div>
+
+<div class="result_block">
+
+@foreach(var row in selectedData)
+{
+<div class="row">
+    <div class="row_title">@row.name</div>
+    <div class="row_paragraph">@row.description</div>
+    <img src=@row.description_media_url class="row_image" alt="alt">
+</div>
+
+ <hr />
+}
+</div>
+    </body>
+</html>
