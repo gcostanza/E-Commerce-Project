@@ -59,3 +59,11 @@ input{
     height: 38px;
     font-size: large;
 }
+.comment{
+    border-style: solid;
+    border-color: grey;
+    border-width: 1px;
+}
+#titlecomment{
+    color: #ffd800;
+}

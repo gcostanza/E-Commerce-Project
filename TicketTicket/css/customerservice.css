@@ -5,6 +5,9 @@
 input {
     color: black;
 }
+textarea{
+    color: Black;
+}
 
 label {
     display: block;
@@ -13,4 +16,12 @@ label {
 
 #maincontent{
     padding: 15px;
+}
+
+select{
+    color: Black;
+}
+
+option{
+    color: Black;
 }
