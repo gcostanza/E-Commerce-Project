@@ -5,3 +5,12 @@
 input {
     color: black;
 }
+
+label {
+    display: block;
+    width: max-content;
+}
+
+#maincontent{
+    padding: 15px;
+}
