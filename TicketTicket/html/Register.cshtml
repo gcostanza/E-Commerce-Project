@@ -34,7 +34,7 @@
         var db = Database.Open("database");
         var insertCommand = "INSERT INTO Users (username, password, first_name, last_name, email, address, date_of_birth) VALUES(@0, @1, @2, @3, @4, @5, @6)";
         db.Execute(insertCommand, username, password, first_name, last_name, email, address, date_of_birth);
-        Response.Redirect("~/Users");
+        Response.Redirect("Users.cshtml");
     }
 
    
