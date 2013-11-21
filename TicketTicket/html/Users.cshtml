@@ -1,5 +1,5 @@
 ﻿@{
-    var db = Database.Open("Web");
+    var db = Database.Open("database");
     var selectedData = db.Query("SELECT * FROM Users");
     var grid = new WebGrid(source: selectedData);
 }
@@ -25,15 +25,18 @@
                 headerStyle: "head",
                 alternatingRowStyle: "alt",
                 columns: grid.Columns(
-                    grid.Column("First_Name"),
-                    grid.Column("Last_Name"),
-                    grid.Column("Date_of_Birth"),
-                    grid.Column("Address"),
-                    grid.Column("Phone_Number")
+                    grid.Column("user_id"),
+                    grid.Column("username"),
+                    grid.Column("password"),
+                    grid.Column("first_name"),
+                    grid.Column("last_name"),
+                    grid.Column("email"),
+                    grid.Column("address"),
+                    grid.Column("date_of_birth")
                 )
             )
         </div>
-            <p><a href="~/Register">Register</a></p>
+            <p><a href=".../Register">Register</a></p>
     </body>
  
 </html>
