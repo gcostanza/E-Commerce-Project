@@ -2,13 +2,7 @@
     Validation.RequireField("username", "Email Address is required");
     Validation.RequireField("password", "Password is required");
     
-    Validation.RequireField("first_name", "First Name is required");
-    Validation.RequireField("last_name", "Last Name is required");  
-    Validation.RequireField("email", "Email Address is required");
-    Validation.RequireField("address", "Address is required");
-    Validation.RequireField("date_of_birth", "Date of Birth is required");
    
-    
     
    
     var username = "";
@@ -25,11 +19,7 @@
        
         username = Request.Form["username"];
         password = Request.Form["password"];
-        first_name = Request.Form["first_name"];
-        last_name = Request.Form["last_name"];
-        email = Request.Form["email"];
-        address = Request.Form["address"];
-        date_of_birth = Request.Form["date_of_birth"];
+       
  
         var db = Database.Open("database");
         var insertCommand = "INSERT INTO Users (username, password, first_name, last_name, email, address, date_of_birth) VALUES(@0, @1, @2, @3, @4, @5, @6)";
@@ -129,7 +119,8 @@
         <li><a href="promotions.html">Promotions</a></li>
       </ul>
     </nav>
-    <!-- Content --> <content> <h1>Registration</h1>
+    <!-- Content --> 
+        <content> <h1>Login</h1>
    
   <form method="post">
     <fieldset>
@@ -143,36 +134,8 @@
           @Html.ValidationMessage("password")
       </p>
         
-
-      <p><label for="first_name">First Name:</label>
-         <input type="text" name="first_name" value="@Request.Form["first_name"]" />
-          @Html.ValidationMessage("first_name")
-      </p>
- 
-      <p><label for="last_name">Last Name:</label>
-         <input type="text" name="last_name" value="@Request.Form["last_name"]" />
-          @Html.ValidationMessage("last_name")
-      </p>
- 
-        <p><label for="email">Email Address:</label>
-         <input type="text" name="email" value="@Request.Form["email"]" />
-          @Html.ValidationMessage("email")
-      </p>
- 
-      <p><label for="address">Address:</label>
-         <input type="text" name="address" value="@Request.Form["address"]" />
-          @Html.ValidationMessage("address")
-      </p>
- 
-      <p><label for="date_of_birth">Date of Birth:</label>
-         <input type="date" name="date_of_birth" value="@Request.Form["date_of_birth"]" />
-          @Html.ValidationMessage("date_of_birth")
-      </p>
-    
-        <p> 
-        <input type="checkbox" name="terms_conditions" value="Accept"> By clicking this box you agree to accept our terms and ocnditions
-          </p>
-      <p><input type="submit" name="buttonSubmit" value="Register" /></p>
+         <p><input type="submit" name="buttonSubmit" value="Login" /></p>
+     
     </fieldset>
   </form>
       
