@@ -1,171 +1,164 @@
 
 
 <!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../css/styleCommon.css">
+        <meta charset="utf-8" />
+        <title>Payment</title>
 
-<html >
-<head>
- <link rel="stylesheet" type="text/css" href="../css/styleCommon.css">
-<meta charset="utf-8" />
-     <title>Payment</title>
-         <style type="text/css">
-     
-             content{
-                 background-color: white;
-             }
-        
-        </style> 
-       
+        <style type="text/css">
+
+
+            
+            
+            content{
+                background-color: white;
+            }
+            
+        </style>
+
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <script type="text/javascript">
+
+
+            function printPreviewDiv(elementId) {
+                var printContent = document.getElementById(elementId);
+                var windowUrl = 'eTicket';
+                var uniqueName = new Date();
+                var windowName = 'Print' + uniqueName.getTime();
+                var printWindow = window.open(windowUrl, windowName, 'left=50000,top=50000,width=0,height=0');
+                var printPreviewObject = '<object id="printPreviewElement" width="0" height="0" classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></object>';
+                printWindow.document.write("E-Ticket");
+                printWindow.document.write(printContent.innerHTML);
+                printWindow.document.write(printPreviewObject);
+
+            }
+
+ </script>
         
     </head>
     <body onload="startBanner(1)">
-     <header>
-         <div class="logoHeader"> <a href="home.html"><img src="../Pictures/logo1.png"
-            id="logo"
-            alt="Logo"
-            title=""></a>
-      </div>
-      <div class="researchHeader">
-        <div id="loupe"><img src="../Pictures/loupe.png" alt="researchPicture"></div>
-        <form id="search" method="post"> <input class="search_data" name="inputResearch"
-            placeholder="Key words..."
-            required=""
-            type="text">
-          <input src="../Pictures/fleche.png" class="btn-right-fleche" value="submit"
-            align="middle"
-            border="0"
-            type="image">
-        </form>
-      </div>
-      <div class="loginHeader">
-        <div id="signIn"><img src="../Pictures/signInButton.png" id="signInButton"
-            alt="signInButton"
-            title=""></div>
-        <div id="resgister"><img src="../Pictures/registerButton.png" id="registerButton"
-            alt="registerButton"
-            title=""></div>
-      </div>
-      <!-- Clear float -->
-      <div class="clear"></div>
-    </header>
-    <!-- Add left -->
-    <div class="add" id="addL"> <a href="https://www.facebook.com/CreArtistprod"><img
-          src="../Pictures/add/logoRouge.png"
-          id="logoAddL1"
-          alt="LogoAddL1"
-          title="Creartist Prod"></a>
-      <a href="http://www.letangmoderne.fr/etangdart.html"><img src="../Pictures/add/festo.png"
-          id="logoAddL2"
-          alt="LogoAddL2"
-          title="Festo Concert"></a>
-      <a href="http://www.royalefactory.fr/"><img src="../Pictures/add/RoyaleFactory.png"
-          id="logoAddL3"
-          alt="LogoAddL3"
-          title="Royale factory"></a>
-      <a href="http://www.fcnantes.com/accueil.php"><img src="../Pictures/add/fcnantes.png"
-          id="logoAddL4"
-          alt="LogoAddL4"
-          title="FC Nantes"></a>
-    </div>
-    <!-- Navigation -->
-    <nav>
-      <ul>
-        <li><a href="home.html">Home</a></li>
-        <li><a href="concert.html">Concert</a></li>
-        <li><a href="spectacle.html">Spectacle</a></li>
-        <li><a href="party.html">Party</a></li>
-        <li><a href="sport.html">Sport</a></li>
-        <li><a href="exhibition.html">Exhibition</a></li>
-        <li><a href="others.html">Others</a></li>
-        <li><a href="promotions.html">Promotions</a></li>
-      </ul>
-    </nav>
-      <!-- Content --> 
-    <content>     
-       <h1>Purchase Details</h1> 
-        <table>
-            <tr><td>Item:</td><td>Movie Ticket Lion King</td></tr>
-            <tr><td>Amount:</td><td>1</td></tr> 
-            <tr><td>Total Payment:</td><td>HKD 280</td></tr>  
-        </table>
-       <h2>Congratlations! Deal made!</h2>
-       <input type="button" value="Print My Ticket"/>
-       <input type="button" value="Download e-Ticket"/>
-       <input type="button" value="Notify my companion by email"/>
-    </content>
-         <!-- Add left -->
-    <div class="add" id="addR"> <a href="http://www.abusdangereux.net/site/tag/secret-place/"><img
-          src="../Pictures/add/djame.jpg"
-          id="logoAddR1"
-          alt="LogoAddR1"
-          title="Tout Fond"></a>
-      <a href="http://www.museedelagrandeguerre.eu/"><img src="../Pictures/add/musee1.jpg"
-          id="logoAddR2"
-          alt="LogoAddR2"
-          title="Musee de la grande geurre"></a>
-      <a href="http://www.quaibranly.fr/"><img src="../Pictures/add/musee2.jpg"
-          id="logoAddR3"
-          alt="LogoAddR3"
-          title="Quai Branly"></a>
-      <a href="http://www.quaibranly.fr/"><img src="../Pictures/add/esl.png" id="logoAddR4"
-          alt="ESL"
-          title="ESL"></a>
-    </div>
-    <!-- Clear float -->
-    <div class="clear"></div>
-    <footer>
-      <div class="columnFooter">
-        <h1>ABOUT US</h1>
-        <ul>
-          <li>Who We Are</li>
-          <li>International</li>
-          <li>Careers</li>
-          <li>Privacy Policy</li>
-          <li>Cookies</li>
-          <li>Purchase Policy</li>
-          <li>Gift Cards</li>
-        </ul>
-      </div>
-      <div class="columnFooter">
-        <h1>WE'RE HERE TO HELP</h1>
-        <ul>
-          <li>Your Account</li>
-          <li>IPrint Tickets</li>
-          <li><a href="customerservice.html">Customer Service</a></li>
-          <li><a href="FAQ.html">FAQ</a></li>
-        </ul>
-      </div>
-      <div class="columnFooter">
-        <h1>OUR NETWORK</h1>
-        <ul>
-          <li>Live Nation</li>
-          <li>TicketWeb</li>
-          <li>GET ME IN!</li>
-          <li><a href="promotions.html">Promotions</a></li>
-        </ul>
-      </div>
-      <div class="columnFooter">
-        <h1>BE A PART OF IT</h1>
-        <ul>
-          <li>Affiliates</li>
-          <li>Ticket Your Event</li>
-          <li>Advertise With Us</li>
-          <li>Live Nation Entertainment</li>
-        </ul>
-      </div>
-      <div class="columnFooter">
-        <h1>FOLLOW US</h1>
-        <div class="follow"> <a href="" target="_blank"><img src="../Pictures/facebook.png"
-              id="logoFB"
-              alt="logoFB"
-              title="logoFB"></a>
-          <a href="" target="_blank"><img src="../Pictures/twitter.png" id="logoTW"
-              alt="logoTW"
-              title="logoTW"></a>
+        <header>
+            <div class="logoHeader">
+                <a href="home.html"><img src="../Pictures/logo1.png" id="logo" alt="Logo" title=""></a>
+            </div>
+            <div class="researchHeader">
+                <div id="loupe"><img src="../Pictures/loupe.png" alt="researchPicture"></div>
+                <form id="search" method="post">
+                    <input class="search_data" name="inputResearch" placeholder="Key words..." required="" type="text">
+                    <input src="../Pictures/fleche.png" class="btn-right-fleche" value="submit" align="middle" border="0" type="image">
+                </form>
+            </div>
+            <div class="loginHeader">
+                <div id="signIn"><img src="../Pictures/signInButton.png" id="signInButton" alt="signInButton" title=""></div>
+                <div id="resgister"><img src="../Pictures/registerButton.png" id="registerButton" alt="registerButton" title=""></div>
+            </div>
+            <!-- Clear float -->
+            <div class="clear"></div>
+        </header>
+        <!-- Add left -->
+        <div class="add" id="addL">
+            <a href="https://www.facebook.com/CreArtistprod"><img src="../Pictures/add/logoRouge.png" id="logoAddL1" alt="LogoAddL1" title="Creartist Prod"></a>
+            <a href="http://www.letangmoderne.fr/etangdart.html"><img src="../Pictures/add/festo.png" id="logoAddL2" alt="LogoAddL2" title="Festo Concert"></a>
+            <a href="http://www.royalefactory.fr/"><img src="../Pictures/add/RoyaleFactory.png" id="logoAddL3" alt="LogoAddL3" title="Royale factory"></a>
+            <a href="http://www.fcnantes.com/accueil.php"><img src="../Pictures/add/fcnantes.png" id="logoAddL4" alt="LogoAddL4" title="FC Nantes"></a>
         </div>
-      </div>
-      <!-- Clear float -->
-      <div class="clear"></div>
-    </footer>   
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="concert.html">Concert</a></li>
+                <li><a href="spectacle.html">Spectacle</a></li>
+                <li><a href="party.html">Party</a></li>
+                <li><a href="sport.html">Sport</a></li>
+                <li><a href="exhibition.html">Exhibition</a></li>
+                <li><a href="others.html">Others</a></li>
+                <li><a href="promotions.html">Promotions</a></li>
+            </ul>
+        </nav>
+        <!-- Content -->
+        <content>
+            <h1>Purchase Details</h1>
+            <div id="d1">
+                <table>
+                    <tr>
+                        <td>Item:</td>
+                        <td>Movie Ticket Lion King</td>
+                    </tr>
+                    <tr>
+                        <td>Amount:</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Total Payment:</td>
+                        <td>HKD 280</td>
+                    </tr>
+                </table>
+            </div>
+            <h2>Congratlations! Deal made!</h2>
+            <input type="button" id="Button1" value="Print My Ticket" onclick="printPreviewDiv('d1')"/>
+            <input type="button" value="Download e-Ticket" />
+            <input type="button" value="Notify my companion by email" />
+        </content>
+        <!-- Add left -->
+        <div class="add" id="addR">
+            <a href="http://www.abusdangereux.net/site/tag/secret-place/"><img src="../Pictures/add/djame.jpg" id="logoAddR1" alt="LogoAddR1" title="Tout Fond"></a>
+            <a href="http://www.museedelagrandeguerre.eu/"><img src="../Pictures/add/musee1.jpg" id="logoAddR2" alt="LogoAddR2" title="Musee de la grande geurre"></a>
+            <a href="http://www.quaibranly.fr/"><img src="../Pictures/add/musee2.jpg" id="logoAddR3" alt="LogoAddR3" title="Quai Branly"></a>
+            <a href="http://www.quaibranly.fr/"><img src="../Pictures/add/esl.png" id="logoAddR4" alt="ESL" title="ESL"></a>
+        </div>
+        <!-- Clear float -->
+        <div class="clear"></div>
+        <footer>
+            <div class="columnFooter">
+                <h1>ABOUT US</h1>
+                <ul>
+                    <li>Who We Are</li>
+                    <li>International</li>
+                    <li>Careers</li>
+                    <li>Privacy Policy</li>
+                    <li>Cookies</li>
+                    <li>Purchase Policy</li>
+                    <li>Gift Cards</li>
+                </ul>
+            </div>
+            <div class="columnFooter">
+                <h1>WE'RE HERE TO HELP</h1>
+                <ul>
+                    <li>Your Account</li>
+                    <li>IPrint Tickets</li>
+                    <li><a href="customerservice.html">Customer Service</a></li>
+                    <li><a href="FAQ.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="columnFooter">
+                <h1>OUR NETWORK</h1>
+                <ul>
+                    <li>Live Nation</li>
+                    <li>TicketWeb</li>
+                    <li>GET ME IN!</li>
+                    <li><a href="promotions.html">Promotions</a></li>
+                </ul>
+            </div>
+            <div class="columnFooter">
+                <h1>BE A PART OF IT</h1>
+                <ul>
+                    <li>Affiliates</li>
+                    <li>Ticket Your Event</li>
+                    <li>Advertise With Us</li>
+                    <li>Live Nation Entertainment</li>
+                </ul>
+            </div>
+            <div class="columnFooter">
+                <h1>FOLLOW US</h1>
+                <div class="follow">
+                    <a href="" target="_blank"><img src="../Pictures/facebook.png" id="logoFB" alt="logoFB" title="logoFB"></a>
+                    <a href="" target="_blank"><img src="../Pictures/twitter.png" id="logoTW" alt="logoTW" title="logoTW"></a>
+                </div>
+            </div>
+            <!-- Clear float -->
+            <div class="clear"></div>
+        </footer>
     </body>
 </html>
