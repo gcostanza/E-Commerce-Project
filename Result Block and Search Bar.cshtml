@@ -7,6 +7,10 @@
     selectCommand = "SELECT * FROM Items WHERE name LIKE @0";
     searchTerm = "%" + Request["search_item"] + "%";
 }
+    if(!Request.QueryString["search_category"].IsEmpty() ) {
+    selectCommand = "SELECT * FROM Items WHERE category LIKE @0";
+    searchTerm = "%" + Request["search_category"] + "%";
+}
 
     var selectedData = db.Query(selectCommand, searchTerm);
     var result_grid = new WebGrid(source: selectedData, defaultSort: "name", rowsPerPage:3);
@@ -63,7 +67,7 @@
 <div class="row">
     <div class="row_title">@row.name</div>
     <div class="row_paragraph">@row.description</div>
-    <img src=@row.description_media_url class="row_image" alt="alt">
+    <img src=@row.description_media_url class="row_image" alt="no image">
 </div>
 
  <hr />
