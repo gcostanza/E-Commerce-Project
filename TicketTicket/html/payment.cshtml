@@ -18,74 +18,179 @@
         string cardnumber = Request.Form["cardnumber"];
         string cardholder = Request.Form["cardholder"];
      <text>
-    Pay By: @cardholder<br/>
-    Card Type: @cardtype<br/>
-    Card Number: @cardnumber<br/>
-    </text>
-    <input type="button" name="confirm" value="Confirm" onclick="window.open(confirmation.cshtml);return false"/>
-    <input type="button" value="Modify"/>
-}   
+    Pay By: @cardholder<br />
+    Card Type: @cardtype<br />
+    Card Number: @cardnumber<br />
+        </text>
+        <input type="button" name="confirm" value="Confirm" onClick="location.href='../confirmation.html'" />
+        <input type="button" value="Modify" />
+    }
 }
 
 <!DOCTYPE html>
-
-<html lang="zh">
+<html>
     <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="../css/styleCommon.css">
-        <style>
-        .field-validation-error{
-            color:red;
-            font-weight:bold;
-            background-color:yellow;
-           }
-
-        .input-validation-error{
-            color:red;
-            font-weight:bold;
-            background-color:pink;
-            }
-        </style> 
+        <meta charset="utf-8" />
         <title>Payment</title>
+        <style type="text/css">
+            .field-validation-error{
+                font-weight:bold;
+                color:red;
+                font-style: italic; 
+               }
+            
+            .input-validation-error{
+                color:red;
+                font-weight:bold;
+                background-color:pink;
+                }
+            
+                 content{
+                     background-color: white;
+                 }
+            
+        </style>
+
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        
+
     </head>
-    <body>
-        <h1>Payment Details</h1>
-        <form method="post">
+
+
+    <body onload="startBanner(1)">
+        <header>
+            <div class="logoHeader">
+                <a href="home.html"><img src="../Pictures/logo1.png" id="logo" alt="Logo" title=""></a>
+            </div>
+            <div class="researchHeader">
+                <div id="loupe"><img src="../Pictures/loupe.png" alt="researchPicture"></div>
+                <form id="search" method="post">
+                    <input class="search_data" name="inputResearch" placeholder="Key words..." required="" type="text">
+                    <input src="../Pictures/fleche.png" class="btn-right-fleche" value="submit" align="middle" border="0" type="image">
+                </form>
+            </div>
+            <div class="loginHeader">
+                <div id="signIn"><img src="../Pictures/signInButton.png" id="signInButton" alt="signInButton" title=""></div>
+                <div id="resgister"><img src="../Pictures/registerButton.png" id="registerButton" alt="registerButton" title=""></div>
+            </div>
+            <!-- Clear float -->
+            <div class="clear"></div>
+        </header>
+        <!-- Add left -->
+        <div class="add" id="addL">
+            <a href="https://www.facebook.com/CreArtistprod"><img src="../Pictures/add/logoRouge.png" id="logoAddL1" alt="LogoAddL1" title="Creartist Prod"></a>
+            <a href="http://www.letangmoderne.fr/etangdart.html"><img src="../Pictures/add/festo.png" id="logoAddL2" alt="LogoAddL2" title="Festo Concert"></a>
+            <a href="http://www.royalefactory.fr/"><img src="../Pictures/add/RoyaleFactory.png" id="logoAddL3" alt="LogoAddL3" title="Royale factory"></a>
+            <a href="http://www.fcnantes.com/accueil.php"><img src="../Pictures/add/fcnantes.png" id="logoAddL4" alt="LogoAddL4" title="FC Nantes"></a>
+        </div>
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="concert.html">Concert</a></li>
+                <li><a href="spectacle.html">Spectacle</a></li>
+                <li><a href="party.html">Party</a></li>
+                <li><a href="sport.html">Sport</a></li>
+                <li><a href="exhibition.html">Exhibition</a></li>
+                <li><a href="others.html">Others</a></li>
+                <li><a href="promotions.html">Promotions</a></li>
+            </ul>
+        </nav>
+        <!-- Content -->
+        <content>
+            <h1>Payment Details</h1>
+            <form method="post">
                 <div>
-                <label>Card Type:</label>
-                <input type="radio" name="cardtype" value="visa"/>Visa
-                <input type="radio" name="cardtype" value="master"/>Master
+                    <label>Card Type:</label>
+                    <input type="radio" name="cardtype" value="visa" />Visa
+                    <input type="radio" name="cardtype" value="master" />Master
                     @Html.ValidationMessage("cardtype")
                 </div>
                 <div>
-                <label>Card Number:</label>
-                <input type="text" name="cardnumber"/>
+                    <label>Card Number:</label>
+                    <input type="text" name="cardnumber" />
                     @Html.ValidationMessage("cardnumber")
                 </div>
                 <div>
-                <label>Card Expiry Date:</label>
-                <input type="text" name="expirymonth" /> /
-                <input type="text" name="expiryyear"/>
+                    <label>Card Expiry Date:</label>
+                    <input type="text" name="expirymonth" /> /
+                    <input type="text" name="expiryyear" />
                     @Html.ValidationMessage("expirymonth")
                     @Html.ValidationMessage("expiryyear")
                 </div>
                 <div>
-                <label>Card Verification Code (CVC):</label>
-                <input type="text" name="cvc"/> Last three digits on Signature Panel
+                    <label>Card Verification Code (CVC):</label>
+                    <input type="text" name="cvc" /> Last three digits on Signature Panel
                     @Html.ValidationMessage("cvc")
                 </div>
                 <div>
-                <label>Card Holder Name: </label>
-                <input type="text" name="cardholder"/> As embossed on card
+                    <label>Card Holder Name: </label>
+                    <input type="text" name="cardholder" /> As embossed on card
                     @Html.ValidationMessage("cardholder")
                 </div>
-                <input type="submit" name="Submit"value="Submit"/>
-                 <input type="button" value="Cancel"/>
-                 <input type="button" value="Reset"/>        
+                <input type="submit" name="Submit" value="Submit" />
+                <input type="button" value="Cancel" />
+                <input type="button" value="Reset" />
             </form>
-            
+        </content>
+        <!-- Add left -->
+        <div class="add" id="addR">
+            <a href="http://www.abusdangereux.net/site/tag/secret-place/"><img src="../Pictures/add/djame.jpg" id="logoAddR1" alt="LogoAddR1" title="Tout Fond"></a>
+            <a href="http://www.museedelagrandeguerre.eu/"><img src="../Pictures/add/musee1.jpg" id="logoAddR2" alt="LogoAddR2" title="Musee de la grande geurre"></a>
+            <a href="http://www.quaibranly.fr/"><img src="../Pictures/add/musee2.jpg" id="logoAddR3" alt="LogoAddR3" title="Quai Branly"></a>
+            <a href="http://www.quaibranly.fr/"><img src="../Pictures/add/esl.png" id="logoAddR4" alt="ESL" title="ESL"></a>
+        </div>
+        <!-- Clear float -->
+        <div class="clear"></div>
+        <footer>
+            <div class="columnFooter">
+                <h1>ABOUT US</h1>
+                <ul>
+                    <li>Who We Are</li>
+                    <li>International</li>
+                    <li>Careers</li>
+                    <li>Privacy Policy</li>
+                    <li>Cookies</li>
+                    <li>Purchase Policy</li>
+                    <li>Gift Cards</li>
+                </ul>
+            </div>
+            <div class="columnFooter">
+                <h1>WE'RE HERE TO HELP</h1>
+                <ul>
+                    <li>Your Account</li>
+                    <li>IPrint Tickets</li>
+                    <li><a href="customerservice.html">Customer Service</a></li>
+                    <li><a href="FAQ.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="columnFooter">
+                <h1>OUR NETWORK</h1>
+                <ul>
+                    <li>Live Nation</li>
+                    <li>TicketWeb</li>
+                    <li>GET ME IN!</li>
+                    <li><a href="promotions.html">Promotions</a></li>
+                </ul>
+            </div>
+            <div class="columnFooter">
+                <h1>BE A PART OF IT</h1>
+                <ul>
+                    <li>Affiliates</li>
+                    <li>Ticket Your Event</li>
+                    <li>Advertise With Us</li>
+                    <li>Live Nation Entertainment</li>
+                </ul>
+            </div>
+            <div class="columnFooter">
+                <h1>FOLLOW US</h1>
+                <div class="follow">
+                    <a href="" target="_blank"><img src="../Pictures/facebook.png" id="logoFB" alt="logoFB" title="logoFB"></a>
+                    <a href="" target="_blank"><img src="../Pictures/twitter.png" id="logoTW" alt="logoTW" title="logoTW"></a>
+                </div>
+            </div>
+            <!-- Clear float -->
+            <div class="clear"></div>
+        </footer>
     </body>
 </html>
