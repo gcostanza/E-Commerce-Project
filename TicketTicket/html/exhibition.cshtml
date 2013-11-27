@@ -1,13 +1,12 @@
 @{
     var db = Database.Open("database") ;
-    var selectCommand = "SELECT * FROM Items";
+    var selectCommand = "SELECT * FROM Items WHERE category LIKE 'exhibition' ";
     var searchTerm = "";
-    bool search = false;
 
-    if(!Request.QueryString["search_item"].IsEmpty() ) {
-    selectCommand = "SELECT * FROM Items WHERE name LIKE @0";
-    searchTerm = "%" + Request["search_item"] + "%";
-    search = true;
+    if(!Request.QueryString["search_category"].IsEmpty() ) {
+    selectCommand = "SELECT * FROM Items WHERE category LIKE @0";
+    searchTerm = "%" + Request["search_category"] + "%";
+    
 }
 
     var selectedData = db.Query(selectCommand, searchTerm);
@@ -163,73 +162,10 @@ function startBanner(firstImageID){
               title="FesTi">
           </div>
         </div>
-@if(!search){
-        <div class="Top">
 
-          <h1>Top sales</h1>
-          <a href="" target="_blank"> <img src="../Pictures/Product/concert1.jpg"
-              class="Icone"
-              id="concert1"
-              alt="concert1"
-              title="Festival"></a>
-          <a href="" target="_blank"> <img src="../Pictures/Product/concert2.jpg"
-              class="Icone"
-              id="concert2"
-              alt="concert2"
-              title="U2"></a>
-          <a href="" target="_blank"> <img src="../Pictures/Product/show1.jpg"
-              class="Icone"
-              id="show1"
-              alt="show1"
-              title="Truman"></a>
-          <a href="" target="_blank"> <img src="../Pictures/Product/show2.jpg"
-              class="Icone"
-              id="show2"
-              alt="show2"
-              title="Tokyo Game Show"></a>
-          <a href="" target="_blank"> <img src="../Pictures/Product/party1.jpg"
-              class="Icone"
-              id="party1"
-              alt="party1"
-              title="Mr Troy"></a>
-          <!-- Clear float -->
-          <div class="clear"></div>
-        </div>
-        <div class="Suggest">
-                    <h1>Suggestions</h1>
-          <a href="" target="_blank"><img src="../Pictures/Product/concert4.jpg"
-              class="Icone"
-              id="concert4"
-              alt="concert4"
-              title="Stromae"></a>
-          <a href="" target="_blank"><img src="../Pictures/Product/concert3.jpg"
-              class="Icone"
-              id="concert3"
-              alt="concert3"
-              title="System of a down"></a>
-          <a href="" target="_blank"> <img src="../Pictures/Product/show3.jpg"
-              class="Icone"
-              id="show3"
-              alt="show3"
-              title="The Rocky Horror"></a>
-          <a href="" target="_blank"> <img src="../Pictures/Product/party2.jpg"
-              class="Icone"
-              id="party2"
-              alt="party2"
-              title="Pop Rock Party"></a>
-          <a href="" target="_blank"> <img src="../Pictures/Product/party3.jpg"
-              class="Icone"
-              id="party3"
-              alt="party3"
-              title="Block Party"></a>
-          <!-- Clear float -->
-          <div class="clear"></div>
-        </div>
-}
-          else{
 
     <h1>Search Results</h1>
- foreach(var row in selectedData)
+ @foreach(var row in selectedData)
 {
 
         <div class="Suggest">
@@ -244,7 +180,7 @@ function startBanner(firstImageID){
           <!-- Clear float -->
           <div class="clear"></div>
         </div>
-}
+
 }
         </div>
       </div>

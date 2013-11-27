@@ -110,6 +110,30 @@ animation: clignote 1s;
 -webkit-animation:clignote 1s; /* Safari and Chrome */
 animation-iteration-count: infinite;
 -webkit-animation-iteration-count: infinite;}
+.DescriptionResult{
+   width: 70%; 
+     margin: 1%;
+      display: inline;
+      float: left;
+}
+
+.DescriptionResult p{
+    color: white;
+}
+.PictureRes{
+    width: 20%;
+    margin: 1.5%;
+    display: inline;
+      float: left;
+}
+
+.imgRes{
+    width: 100%;
+    height: auto;
+}
+.price{
+    font-weight: bold;
+}
 
 #concertdeal2{
 margin-top:10%;

@@ -1,14 +1,274 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
-<html> <head>
-<title></title>
-</head>
+@{
+    var db = Database.Open("database") ;
+    var selectCommand = "SELECT * FROM Items WHERE category LIKE 'promotions' ";
+    var searchTerm = "";
 
-<body>
-<h1></h1>
+    if(!Request.QueryString["search_category"].IsEmpty() ) {
+    selectCommand = "SELECT * FROM Items WHERE category LIKE @0";
+    searchTerm = "%" + Request["search_category"] + "%";
+    
+}
+
+    var selectedData = db.Query(selectCommand, searchTerm);
+    var result_grid = new WebGrid(source: selectedData, defaultSort: "name", rowsPerPage:3);
+}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+    <link rel="stylesheet" type="text/css" href="../css/styleCommon.css">
+    <link rel="stylesheet" type="text/css" href="../css/home.css">
+    <title>TicketTicket</title>
+    <script type="text/javascript">
+//ROTATING BANNER BY CIARAN O'KELLY 2012 - BLOG.CRONDESIGN.COM
+
+//BANNER SETUP:
+var imageCount = 5; 	//how many images in total?
+var changeSpeed = 3; 	//how many seconds between fades?
+var fadeSpeed = 0.5;	//how many seconds should the fade take?
+var fps = 25;			//animation frames per second
+
+//BANNER FUNCTIONS:
+var topImgID
+var changeInterval
+
+function $(id){ //a simple shortcut function:
+	return(document.getElementById(id));
+}
+
+function changeOpac(obj, opacity) {//change the opacity for different browsers:
+	obj = obj.style; 
+	obj.opacity = (opacity / 100);
+	obj.MozOpacity = (opacity / 100);
+	obj.KhtmlOpacity = (opacity / 100);
+	obj.filter = "alpha(opacity=" + opacity + ")";
+}
+
+function changeImage(){
+	var nextImgID = ( topImgID+1 <= imageCount ? topImgID+1 : 1 ); //get id number of next image in list
+	var nextImg = $('banner'+nextImgID);
+	var lastImg = $('banner'+topImgID);
+	var opac = 0;
+	changeOpac( nextImg, opac) //make next image invisible, then bring it to the top:
+	lastImg.style.zIndex = 2;
+	nextImg.style.zIndex = 3;
+	
+	var fadeInterval = setInterval(function(){ //run the fade on interval:
+		if(opac < 100){//continue fade:
+			opac += Math.ceil(100/(fadeSpeed*fps));
+			changeOpac(nextImg, opac);
+		}else{//end fade:
+			lastImg.style.zIndex = 1;
+			clearInterval(fadeInterval);
+		}
+	}, 1000/fps)
+	
+	topImgID = nextImgID; //prepare the next fade
+}
+
+function startBanner(firstImageID){
+	topImgID = (firstImageID==undefined ? 1+Math.floor(Math.random()*(imageCount)) : firstImageID);
+	$('banner'+topImgID).style.zIndex = 2;
+	changeInterval = setInterval(changeImage, changeSpeed*1000);
+}
+
+</script> </head>
+  <body onload="startBanner(1)">
+    <header>
+      <div class="logoHeader"> <a href="home.html"><img src="../Pictures/logo1.png"
+            id="logo"
+            alt="Logo"
+            title=""></a>
+      </div>
+      <div class="researchHeader">
+        <div id="loupe"><img src="../Pictures/loupe.png" alt="researchPicture"></div>
+        <form id="search" method="get"> <input class="search_data" name="search_item"
+            placeholder="Key words..."
+            required=""
+            type="text"
+            value="@Request.QueryString["search_item"]">
+          <input src="../Pictures/fleche.png" class="btn-right-fleche" value="submit"
+            align="middle"
+            border="0"
+            type="image"
+            >
+        </form>
+      </div>
+      <div class="loginHeader">
+        <div id="signIn"><a href="login.cshtml"><img src="../Pictures/signInButton.png" id="signInButton"
+            alt="signInButton"
+            title=""></a></div>
+        <div id="resgister"><a href="Register.cshtml"><img src="../Pictures/registerButton.png" id="registerButton"
+            alt="registerButton"
+            title=""></a></div>
+      </div>
+      <!-- Clear float -->
+      <div class="clear"></div>
+    </header>
+    <!-- Add left -->
+    <div class="add" id="addL"> <a href="https://www.facebook.com/CreArtistprod"><img
+          src="../Pictures/add/logoRouge.png"
+          id="logoAddL1"
+          alt="LogoAddL1"
+          title="Creartist Prod"></a>
+      <a href="http://www.letangmoderne.fr/etangdart.html"><img src="../Pictures/add/festo.png"
+          id="logoAddL2"
+          alt="LogoAddL2"
+          title="Festo Concert"></a>
+      <a href="http://www.royalefactory.fr/"><img src="../Pictures/add/RoyaleFactory.png"
+          id="logoAddL3"
+          alt="LogoAddL3"
+          title="Royale factory"></a>
+      <a href="http://www.fcnantes.com/accueil.php"><img src="../Pictures/add/fcnantes.png"
+          id="logoAddL4"
+          alt="LogoAddL4"
+          title="FC Nantes"></a>
+    </div>
+    <!-- Navigation -->
+    <nav>
+      <ul>
+        <li><a href="home.cshtml">Home</a></li>
+        <li><a href="concert.cshtml">Concert</a></li>
+        <li><a href="spectacle.cshtml">Spectacle</a></li>
+        <li><a href="party.cshtml">Party</a></li>
+        <li><a href="sport.cshtml">Sport</a></li>
+        <li><a href="exhibition.cshtml">Exhibition</a></li>
+        <li><a href="others.cshtml">Others</a></li>
+        <li><a href="promotions.cshtml">Promotions</a></li>
+      </ul>
+    </nav>
+    <!-- Content --> <content>
+      <div class="Product">
+        <div class="Banner">
+          <div id="banner2" class="banner">
+            <img src="../Pictures/banner2.png" class="bannerPict" id="banner1" alt="banner1"
+              title="Festival Fashion Ethnic">
+          </div>
+          <div id="banner3" class="banner">
+            <img src="../Pictures/banner3.jpg" class="bannerPict" id="banner1" alt="banner1"
+              title="Syrinne Ben Moussa">
+          </div>
+          <div id="banner4" class="banner">
+            <img src="../Pictures/banner4.jpg" class="bannerPict" id="banner1" alt="banner1"
+              title="Curieux voyageurs">
+          </div>
+          <div id="banner5" class="banner">
+            <img src="../Pictures/banner5.jpg" class="bannerPict" id="banner1" alt="banner1"
+              title="Chinese">
+          </div>
+          <div id="banner1" class="banner">
+            <img src="../Pictures/banner1.jpg" class="bannerPict" id="banner1" alt="banner1"
+              title="FesTi">
+          </div>
+        </div>
 
 
+    <h1>Search Results</h1>
+ @foreach(var row in selectedData)
+{
 
-<hr>
-<address></address>
-<!-- hhmts start -->Last modified: Sun Nov 10 22:32:02 HKT 2013 <!-- hhmts end -->
-</body> </html>
+        <div class="Suggest">
+            <div class="DescriptionResult">
+       <h1>@row.name</h1>
+       <p>@row.description <br>
+       on @row.time
+       </p>
+       <p class="price">Discount Price : @row.price $</p></div>
+            <div class="PictureRes">`                <img src="../Pictures/Deal.png" class="imgRes" alt="image res"></div>
+  
+          <!-- Clear float -->
+          <div class="clear"></div>
+        </div>
+
+}
+        </div>
+      </div>
+      <div class="Deals"> <a href="promotions.html"> <img src="../Pictures/Deal.png"
+            id="deal"
+            alt="deal"
+            title=""></a>
+        <img src="../Pictures/Product/concertdeal1.jpg" class="IconeDeal" id="concertdeal1"
+          alt="concertdeal1"
+          title="Virgin">
+        <img src="../Pictures/Product/concertdeal2.jpg" class="IconeDeal" id="concertdeal2"
+          alt="concertdeal2"
+          title="Rohff">
+      </div>
+    </content>
+    <!-- Add left -->
+    <div class="add" id="addR"> <a href="http://www.abusdangereux.net/site/tag/secret-place/"><img
+          src="../Pictures/add/djame.jpg"
+          id="logoAddR1"
+          alt="LogoAddR1"
+          title="Tout Fond"></a>
+      <a href="http://www.museedelagrandeguerre.eu/"><img src="../Pictures/add/musee1.jpg"
+          id="logoAddR2"
+          alt="LogoAddR2"
+          title="Musee de la grande geurre"></a>
+      <a href="http://www.quaibranly.fr/"><img src="../Pictures/add/musee2.jpg"
+          id="logoAddR3"
+          alt="LogoAddR3"
+          title="Quai Branly"></a>
+      <a href="http://www.quaibranly.fr/"><img src="../Pictures/add/esl.png" id="logoAddR4"
+          alt="ESL"
+          title="ESL"></a>
+    </div>
+    <!-- Clear float -->
+    <div class="clear"></div>
+    <footer>
+      <div class="columnFooter">
+        <h1>ABOUT US</h1>
+        <ul>
+          <li>Who We Are</li>
+          <li>International</li>
+          <li>Careers</li>
+          <li>Privacy Policy</li>
+          <li>Cookies</li>
+          <li>Purchase Policy</li>
+          <li>Gift Cards</li>
+        </ul>
+      </div>
+      <div class="columnFooter">
+        <h1>WE'RE HERE TO HELP</h1>
+        <ul>
+          <li>Your Account</li>
+          <li>IPrint Tickets</li>
+          <li><a href="customerservice.html">Customer Service</a></li>
+          <li><a href="FAQ.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="columnFooter">
+        <h1>OUR NETWORK</h1>
+        <ul>
+          <li>Live Nation</li>
+          <li>TicketWeb</li>
+          <li>GET ME IN!</li>
+          <li><a href="promotions.html">Promotions</a></li>
+        </ul>
+      </div>
+      <div class="columnFooter">
+        <h1>BE A PART OF IT</h1>
+        <ul>
+          <li>Affiliates</li>
+          <li>Ticket Your Event</li>
+          <li>Advertise With Us</li>
+          <li>Live Nation Entertainment</li>
+        </ul>
+      </div>
+      <div class="columnFooter">
+        <h1>FOLLOW US</h1>
+        <div class="follow"> <a href="" target="_blank"><img src="../Pictures/facebook.png"
+              id="logoFB"
+              alt="logoFB"
+              title="logoFB"></a>
+          <a href="" target="_blank"><img src="../Pictures/twitter.png" id="logoTW"
+              alt="logoTW"
+              title="logoTW"></a>
+        </div>
+      </div>
+      <!-- Clear float -->
+      <div class="clear"></div>
+    </footer>
+  </body>
+</html>
