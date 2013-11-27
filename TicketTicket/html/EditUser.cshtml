@@ -1,91 +1,342 @@
 ﻿@{
-    var title = "";
-    var genre = "";
-    var year = "";
-    var movieId = "";
+    var username = "";
+    var password = "";
+    var confirm_pw = "";
+    var first_name = "";
+    var last_name = "";
+    var email = "";
+    var address = "";
+    var date_of_birth = "";
+    var user_id = "";
  
    if(IsPost){
-        Validation.RequireField("title", "You must enter a title");
-        Validation.RequireField("genre", "Genre is required");
-        Validation.RequireField("year", "You haven't entered a year");
-        Validation.RequireField("movieid", "No movie ID was submitted!");
+        Validation.RequireField("username", "You must enter a username");
+        Validation.RequireField("password", "Password is required");
+        Validation.RequireField("first_name", "First Name is required");
+        Validation.RequireField("last_name", "Last Name is required");
+        Validation.RequireField("email", "Email Address is required");
+        Validation.RequireField("address", "Address is required");
+        Validation.RequireField("date_of_birth", "Date of Birth  is required");
+        
  
-        title = Request.Form["title"];
-        genre = Request.Form["genre"];
-        year = Request.Form["year"];
-        movieId = Request.Form["movieId"];
+        username = Request.Form["username"];
+        password = Request.Form["password"];
+        first_name = Request.Form["first_name"];
+        last_name = Request.Form["last_name"];
+        email = Request.Form["email"];
+        address = Request.Form["address"];
+        date_of_birth = Request.Form["date_of_birth"];
+        user_id = Request.Form["user_id"];
  
         if(Validation.IsValid()){
-            var db = Database.Open("WebPagesMovies2");
-            var updateCommand = "UPDATE Movies SET Title=@0, Genre=@1, Year=@2 WHERE Id=@3";
-            db.Execute(updateCommand, title, genre, year, movieId);
-            Response.Redirect("~/Movies");
+            var db = Database.Open("database");
+            var updateCommand = "UPDATE Users SET username=@0, password=@1, first_name=@2, last_name =@3, email=@4, address=@5, date_of_birth=@6  WHERE user_id=@7";
+            db.Execute(updateCommand, username, password, first_name, last_name, email, address, date_of_birth, user_id);
+            Response.Redirect("Users.cshtml");
        }
     }
     if(!IsPost){
-        if(!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt()){
-            movieId = Request.QueryString["ID"];
-            var db = Database.Open("WebPagesMovies2");
-            var dbCommand = "SELECT * FROM Movies WHERE ID = @0";
-            var row = db.QuerySingle(dbCommand, movieId);
+        if(!Request.QueryString["user_id"].IsEmpty() && Request.QueryString["user_id"].IsInt()){
+            user_id = Request.QueryString["user_id"];
+            var db = Database.Open("database");
+            var dbCommand = "SELECT * FROM Users WHERE user_id = @0";
+            var row = db.QuerySingle(dbCommand, user_id);
             
             
             if(row != null){
-            title = row.Title;
-            genre = row.Genre;
-            year = row.Year;
+            username = row.username;
+            password = row.password;
+            first_name = row.first_name;
+            last_name = row.last_name;
+            email = row.email;
+            address = row.address;
+            date_of_birth = row.date_of_birth;
+            
+
+
             }
             else{
-                Validation.AddFormError("No movie found for that ID");
+                Validation.AddFormError("No user found for that ID");
             }
         }
         else{
-            Validation.AddFormError("No movie was selected.");
-            // If you are using a version of ASP.NET Web Pages 2 that's
-            // earlier than the RC release, comment out the preceding
-            // statement and uncomment the following one.
-            //ModelState.AddFormError("No movie was selected.");
+            Validation.AddFormError("No user was selected.");
+            
         }
     }
 }
  
+
+
+
+   
+    
+
+ 
 <!DOCTYPE html>
 <html>
-  <head>
-   <meta charset="utf-8" />
-   <title>Edit a Movie</title>
-    <style>
-      .validation-summary-errors{
-        border:2px dashed red;
-        color:red;
-        font-weight:bold;
-        margin:12px;
-      }
-    </style>
-  </head>
+<head>
+    <link rel="stylesheet" type="text/css" href="../css/styleCommon.css">
+<meta charset="utf-8" />
+<title>User Registration</title>
+    <style type="text/css">
+    .field-validation-error {
+      
+      font-weight:bold;
+      color:red;
+      font-style: italic; 
+     }
+    .validation-summary-errors{
+      border:2px  red;
+      color:red;
+      
+      font-weight:bold;
+      margin:12px;
+    }
+     h1, p,legend, label{
+            color: white;
+        }
+  </style>
 </head>
 <body>
-  <h1>Edit a Movie</h1>
+    <body onload="startBanner(1)">
+    <header>
+      <div class="logoHeader"> <a href="home.html"><img src="../Pictures/logo1.png"
+            id="logo"
+            alt="Logo"
+            title=""></a>
+      </div>
+      <div class="researchHeader">
+        <div id="loupe"><img src="../Pictures/loupe.png" alt="researchPicture"></div>
+        <form id="search" method="post"> <input class="search_data" name="inputResearch"
+            placeholder="Key words..."
+            required=""
+            type="text">
+          <input src="../Pictures/fleche.png" class="btn-right-fleche" value="submit"
+            align="middle"
+            border="0"
+            type="image">
+        </form>
+      </div>
+      <div class="loginHeader">
+        <div id="signIn"><img src="../Pictures/signInButton.png" id="signInButton"
+            alt="signInButton"
+            title=""></div>
+        <div id="resgister"><img src="../Pictures/registerButton.png" id="registerButton"
+            alt="registerButton"
+            title=""></div>
+      </div>
+      <!-- Clear float -->
+      <div class="clear"></div>
+    </header>
+    <!-- Add left -->
+    <div class="add" id="addL"> <a href="https://www.facebook.com/CreArtistprod"><img
+          src="../Pictures/add/logoRouge.png"
+          id="logoAddL1"
+          alt="LogoAddL1"
+          title="Creartist Prod"></a>
+      <a href="http://www.letangmoderne.fr/etangdart.html"><img src="../Pictures/add/festo.png"
+          id="logoAddL2"
+          alt="LogoAddL2"
+          title="Festo Concert"></a>
+      <a href="http://www.royalefactory.fr/"><img src="../Pictures/add/RoyaleFactory.png"
+          id="logoAddL3"
+          alt="LogoAddL3"
+          title="Royale factory"></a>
+      <a href="http://www.fcnantes.com/accueil.php"><img src="../Pictures/add/fcnantes.png"
+          id="logoAddL4"
+          alt="LogoAddL4"
+          title="FC Nantes"></a>
+    </div>
+    <!-- Navigation -->
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="concert.html">Concert</a></li>
+        <li><a href="spectacle.html">Spectacle</a></li>
+        <li><a href="party.html">Party</a></li>
+        <li><a href="sport.html">Sport</a></li>
+        <li><a href="exhibition.html">Exhibition</a></li>
+        <li><a href="others.html">Others</a></li>
+        <li><a href="promotions.html">Promotions</a></li>
+      </ul>
+    </nav>
+    <!-- Content --> <content> 
+      <h1>Edit User Information</h1>
     @Html.ValidationSummary()
   <form method="post">
     <fieldset>
-      <legend>Movie Information</legend>
+      <legend>User Information</legend>
  
-      <p><label for="title">Title:</label>
-         <input type="text" name="title" value="@title" /></p>
+      <p><label for="username">Username:</label>
+         <input type="text" name="username" value="@username" />
+          
+      </p>
+        <p><label for="password">Password:</label>
+         <input type ="password" name="password" value="@password" />
+         
+      </p>
+        
+
+      <p><label for="first_name">First Name:</label>
+         <input type="text" name="first_name" value="@first_name" />
+          
+      </p>
  
-      <p><label for="genre">Genre:</label>
-         <input type="text" name="genre" value="@genre" /></p>
+      <p><label for="last_name">Last Name:</label>
+         <input type="text" name="last_name" value="@last_name" />
+          
+      </p>
  
-      <p><label for="year">Year:</label>
-         <input type="text" name="year" value="@year" /></p>
+        <p><label for="email">Email Address:</label>
+         <input type="text" name="email" value="@email" />
+          
+      </p>
  
-      <input type="hidden" name="movieid" value="@movieId" /> 
+      <p><label for="address">Address:</label>
+         <input type="text" name="address" value="@address" />
+          
+      </p>
+
+        <p><label for="date_of_birth">Date of Birth:</label>
+         <input type="date" name="date_of_birth" value="@date_of_birth" />
+          
+      </p>
+      
+ 
+      <input type="hidden" name="user_id" value="@user_id" /> 
  
       <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>
     </fieldset>
       
   </form>
-    <p><a href="~/Movies">Return to movie listing</a></p>
+    <p><a href="home.html">Return to Home</a></p>
+          <!-- Clear float -->
+          <div class="clear"></div>
+        </div>
+        <div class="Suggest">
+                    <h1>Suggestions</h1>
+          <a href="" target="_blank"><img src="../Pictures/Product/concert4.jpg"
+              class="Icone"
+              id="concert4"
+              alt="concert4"
+              title="Stromae"></a>
+          <a href="" target="_blank"><img src="../Pictures/Product/concert3.jpg"
+              class="Icone"
+              id="concert3"
+              alt="concert3"
+              title="System of a down"></a>
+          <a href="" target="_blank"> <img src="../Pictures/Product/show3.jpg"
+              class="Icone"
+              id="show3"
+              alt="show3"
+              title="The Rocky Horror"></a>
+          <a href="" target="_blank"> <img src="../Pictures/Product/party2.jpg"
+              class="Icone"
+              id="party2"
+              alt="party2"
+              title="Pop Rock Party"></a>
+          <a href="" target="_blank"> <img src="../Pictures/Product/party3.jpg"
+              class="Icone"
+              id="party3"
+              alt="party3"
+              title="Block Party"></a>
+          <!-- Clear float -->
+          <div class="clear"></div>
+        </div>
+      </div>
+      <div class="Deals"> <a href="promotions.html"> <img src="../Pictures/Deal.png"
+            id="deal"
+            alt="deal"
+            title=""></a>
+        <img src="../Pictures/Product/concertdeal1.jpg" class="IconeDeal" id="concertdeal1"
+          alt="concertdeal1"
+          title="Virgin">
+        <img src="../Pictures/Product/concertdeal2.jpg" class="IconeDeal" id="concertdeal2"
+          alt="concertdeal2"
+          title="Rohff">
+      </div>
+    </content>
+    <!-- Add left -->
+    <div class="add" id="addR"> <a href="http://www.abusdangereux.net/site/tag/secret-place/"><img
+          src="../Pictures/add/djame.jpg"
+          id="logoAddR1"
+          alt="LogoAddR1"
+          title="Tout Fond"></a>
+      <a href="http://www.museedelagrandeguerre.eu/"><img src="../Pictures/add/musee1.jpg"
+          id="logoAddR2"
+          alt="LogoAddR2"
+          title="Musee de la grande geurre"></a>
+      <a href="http://www.quaibranly.fr/"><img src="../Pictures/add/musee2.jpg"
+          id="logoAddR3"
+          alt="LogoAddR3"
+          title="Quai Branly"></a>
+      <a href="http://www.quaibranly.fr/"><img src="../Pictures/add/esl.png" id="logoAddR4"
+          alt="ESL"
+          title="ESL"></a>
+    </div>
+    <!-- Clear float -->
+    <div class="clear"></div>
+    <footer>
+      <div class="columnFooter">
+        <h1>ABOUT US</h1>
+        <ul>
+          <li>Who We Are</li>
+          <li>International</li>
+          <li>Careers</li>
+          <li>Privacy Policy</li>
+          <li>Cookies</li>
+          <li>Purchase Policy</li>
+          <li>Gift Cards</li>
+        </ul>
+      </div>
+      <div class="columnFooter">
+        <h1>WE'RE HERE TO HELP</h1>
+        <ul>
+          <li>Your Account</li>
+          <li>IPrint Tickets</li>
+          <li><a href="customerservice.html">Customer Service</a></li>
+          <li><a href="FAQ.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="columnFooter">
+        <h1>OUR NETWORK</h1>
+        <ul>
+          <li>Live Nation</li>
+          <li>TicketWeb</li>
+          <li>GET ME IN!</li>
+          <li><a href="promotions.html">Promotions</a></li>
+        </ul>
+      </div>
+      <div class="columnFooter">
+        <h1>BE A PART OF IT</h1>
+        <ul>
+          <li>Affiliates</li>
+          <li>Ticket Your Event</li>
+          <li>Advertise With Us</li>
+          <li>Live Nation Entertainment</li>
+        </ul>
+      </div>
+      <div class="columnFooter">
+        <h1>FOLLOW US</h1>
+        <div class="follow"> <a href="" target="_blank"><img src="../Pictures/facebook.png"
+              id="logoFB"
+              alt="logoFB"
+              title="logoFB"></a>
+          <a href="" target="_blank"><img src="../Pictures/twitter.png" id="logoTW"
+              alt="logoTW"
+              title="logoTW"></a>
+        </div>
+      </div>
+      <!-- Clear float -->
+      <div class="clear"></div>
+    </footer>
+  </body>
+
+
+
+ 
 </body>
 </html>
+
+

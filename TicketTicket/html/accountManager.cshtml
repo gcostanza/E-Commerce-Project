@@ -1,53 +1,57 @@
-﻿@{ 
-    Validation.RequireField("username", "Email Address is required");
-    Validation.RequireField("password", "Password is required");
-    
-    Validation.RequireField("first_name", "First Name is required");
-    Validation.RequireField("last_name", "Last Name is required");  
-    Validation.RequireField("email", "Email Address is required");
-    Validation.RequireField("address", "Address is required");
-    Validation.RequireField("date_of_birth", "Date of Birth is required");
-   
-    
-    
-   
+﻿@{
     var username = "";
     var password = "";
-    var confirm_pw = "";
     var first_name = "";
     var last_name = "";
     var email = "";
+    var date_of_birth = Request.QueryString["user_id"];
+    var user_id = "";
     var address = "";
-    var date_of_birth = "";
-       
- 
-    if(IsPost && Validation.IsValid()){
-       
-        username = Request.Form["username"];
-        password = Request.Form["password"];
-        first_name = Request.Form["first_name"];
-        last_name = Request.Form["last_name"];
-        email = Request.Form["email"];
-        address = Request.Form["address"];
-        date_of_birth = Request.Form["date_of_birth"];
- 
-        var db = Database.Open("database");
-        var insertCommand = "INSERT INTO Users (username, password, first_name, last_name, email, address, date_of_birth) VALUES(@0, @1, @2, @3, @4, @5, @6)";
-        db.Execute(insertCommand, username, password, first_name, last_name, email, address, date_of_birth);
-        Response.Redirect("home.cshtml");
+
+    
+
+    if(!IsPost){
+        if(!Request.QueryString["user_id"].IsEmpty() && Request.QueryString["user_id"].IsInt()){
+            user_id = Request.QueryString["user_id"];
+            var db = Database.Open("database");
+            var dbCommand = "SELECT * FROM Users WHERE user_id = @0";
+            var row = db.QuerySingle(dbCommand, user_id);
+            if(row != null) {
+                username = row.username;
+                password = row.password;
+                first_name = row.first_name;
+                last_name = row.last_name;
+                email = row.email;        
+                address = row.address;
+                date_of_birth = row.date_of_birth;
+
+            }
+            else{
+                Validation.AddFormError("No user was found for that ID.");
+               
+            }
+        }
+        else{
+            Validation.AddFormError("No user was found for that ID.");
+           
+        }
     }
 
-   
     
 }
- 
+
+<!DOCTYPE html>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="../css/styleCommon.css">
 <meta charset="utf-8" />
-<title>User Registration</title>
+<title>Account Manager</title>
     <style type="text/css">
+       
     .field-validation-error {
       
       font-weight:bold;
@@ -61,9 +65,11 @@
       font-weight:bold;
       margin:12px;
     }
-     h1, p,legend, label{
+        #p2{color: white; font-weight:bold;}
+     h1,h3, p,legend, label{
             color: white;
         }
+      
   </style>
 </head>
 <body>
@@ -129,53 +135,43 @@
         <li><a href="promotions.html">Promotions</a></li>
       </ul>
     </nav>
-    <!-- Content --> <content> <h1>Registration</h1>
-   
-  <form method="post">
-    <fieldset>
-      <legend>User Information</legend>
-        <p><label for="username">Username:</label>
-         <input type="text" name="username" value="@Request.Form["username"]" />
-          @Html.ValidationMessage("username")
-      </p>
-        <p><label for="password">Password:</label>
-         <input type ="password" name="password" value="@Request.Form["password"]" />
-          @Html.ValidationMessage("password")
-      </p>
-        
+    <!-- Content --> <content> 
+      <h1>Account Information</h1>
+        @Html.ValidationSummary()
+      <p><a href="Home.cshtml">Return Home</a></p>
 
-      <p><label for="first_name">First Name:</label>
-         <input type="text" name="first_name" value="@Request.Form["first_name"]" />
-          @Html.ValidationMessage("first_name")
-      </p>
- 
-      <p><label for="last_name">Last Name:</label>
-         <input type="text" name="last_name" value="@Request.Form["last_name"]" />
-          @Html.ValidationMessage("last_name")
-      </p>
- 
-        <p><label for="email">Email Address:</label>
-         <input type="text" name="email" value="@Request.Form["email"]" />
-          @Html.ValidationMessage("email")
-      </p>
- 
-      <p><label for="address">Address:</label>
-         <input type="text" name="address" value="@Request.Form["address"]" />
-          @Html.ValidationMessage("address")
-      </p>
- 
-      <p><label for="date_of_birth">Date of Birth:</label>
-         <input type="date" name="date_of_birth" value="@Request.Form["date_of_birth"]" />
-          @Html.ValidationMessage("date_of_birth")
-      </p>
-    
-        <p> 
-        <input type="checkbox" name="terms_conditions" value="Accept"> By clicking this box you agree to accept our terms and ocnditions
-          </p>
-      <p><input type="submit" name="buttonSubmit" value="Register" /></p>
-    </fieldset>
-  </form>
-      
+      <form method="post">
+        <fieldset>
+        <legend>User Information</legend>
+
+         <p><p2><span>Username:</span></p2>
+        <span>&nbsp&nbsp&nbsp @username</span></p>
+
+        <p><span>Password:</span>
+          <span>&nbsp&nbsp&nbsp @password</span></p>
+
+       <p><span>First Name:</span>
+          <span>&nbsp&nbsp&nbsp @first_name</span></p>
+
+            <p><span>Last Name:</span>
+         <span>&nbsp&nbsp&nbsp @last_name</span></p>
+
+            <p><span>Email Adress:</span>
+          <span>&nbsp&nbsp @email</span></p>
+
+          <p> <span>Address:</span>
+          <span>&nbsp&nbsp&nbsp @address</span></p>
+
+          <p>  <span>Date of Birth:</span>
+          <span>&nbsp&nbsp @date_of_birth</span></p>
+
+            <p><a href="EditUser.cshtml?user_id=@user_id">Edit Information</a>
+            </p>
+
+        <input type="hidden" name="user_id" value="@user_id" />
+        
+        </fieldset>
+      </form>
           <!-- Clear float -->
           <div class="clear"></div>
         </div>
@@ -303,5 +299,3 @@
  
 </body>
 </html>
-
-

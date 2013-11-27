@@ -13,10 +13,13 @@
          <link rel="stylesheet" type="text/css" href="../css/home.css">
         <title>Users</title>
         <style type="text/css">
-          .grid { margin: 4px; border-collapse: collapse; width: 600px; }
+            h1, p,legend, label{
+            color: white;
+        }
+          .grid { margin: 4px; border-collapse: collapse; width: 600px;color: white }
           .grid th, .grid td { border: 1px solid #C0C0C0; padding: 5px; }
-          .head { background-color: #E8E8E8; font-weight: bold; color: #FFF; }
-          .alt { background-color: #E8E8E8; color: #000; }
+          .head { background-color: #E8E8E8; font-weight: bold; color: white; }
+          .alt { background-color: #E8E8E8; color: white; }
         </style>
     </head>
     <body>
@@ -83,13 +86,14 @@
       </ul>
     </nav>
     <!-- Content --> <content>
-       <h1>Users</h1>
+       <h1>Account Manager</h1>
         <div>
             @grid.GetHtml(
                 tableStyle: "grid",
                 headerStyle: "head",
-                alternatingRowStyle: "alt",
+               
                 columns: grid.Columns(
+                    grid.Column(format: @<a href="accountManager.cshtml?user_id=@item.user_id">Edit</a>),
                     grid.Column("user_id"),
                     grid.Column("username"),
                     grid.Column("password"),
@@ -101,7 +105,7 @@
                 )
             )
         </div>
-            <p><a href="Register.cshtml">Register</a></p>
+            
           <!-- Clear float -->
           <div class="clear"></div>
         </div>
